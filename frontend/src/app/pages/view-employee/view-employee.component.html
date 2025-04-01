@@ -1,0 +1,26 @@
+<h2>Employee Details</h2>
+
+<div *ngIf="loading">Loading...</div>
+
+<div *ngIf="!loading && employee">
+  <img
+    *ngIf="employee.employee_photo"
+    [src]="'http://localhost:5000/uploads/' + employee.employee_photo"
+    [alt]="employee.first_name + ' ' + employee.last_name"
+    width="150"
+    style="border-radius: 10px; margin-bottom: 1rem;"
+  />
+
+  <p><strong>Name:</strong> {{ employee.first_name }} {{ employee.last_name }}</p>
+  <p><strong>Email:</strong> {{ employee.email }}</p>
+  <p><strong>Gender:</strong> {{ employee.gender }}</p>
+  <p><strong>Designation:</strong> {{ employee.designation }}</p>
+  <p><strong>Department:</strong> {{ employee.department }}</p>
+  <p><strong>Salary:</strong> ${{ employee.salary }}</p>
+  <p><strong>Date of Joining:</strong> {{ employee.date_of_joining | date }}</p>
+
+  <br />
+  <a routerLink="/employees">
+    🔙 Back to Employees
+  </a>
+</div>

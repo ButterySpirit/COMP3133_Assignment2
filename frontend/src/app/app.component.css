@@ -1,0 +1,27 @@
+.navbar {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .navbar a,
+  .navbar button {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .navbar a.active {
+    color: #1976d2;
+  }
+  
+  .navbar button:hover,
+  .navbar a:hover {
+    text-decoration: underline;
+  }
+  

@@ -1,0 +1,45 @@
+<h2>Add New Employee</h2>
+
+<form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+  <label>First Name:</label>
+  <input formControlName="first_name" />
+  <div *ngIf="submitted && employeeForm.controls['first_name'].errors?.['required']">Required</div>
+
+  <label>Last Name:</label>
+  <input formControlName="last_name" />
+  <div *ngIf="submitted && employeeForm.controls['last_name'].errors?.['required']">Required</div>
+
+  <label>Email:</label>
+  <input formControlName="email" />
+  <div *ngIf="submitted && employeeForm.controls['email'].errors?.['required']">Required</div>
+
+  <label>Gender:</label>
+  <select formControlName="gender">
+    <option>Male</option>
+    <option>Female</option>
+    <option>Other</option>
+  </select>
+
+  <label>Designation:</label>
+  <input formControlName="designation" />
+
+  <label>Department:</label>
+  <input formControlName="department" />
+
+  <label>Salary:</label>
+  <input type="number" formControlName="salary" />
+
+  <label>Date of Joining:</label>
+  <input type="date" formControlName="date_of_joining" />
+
+  <label>Photo (optional):</label>
+  <input type="file" (change)="onFileChange($event)" accept="image/*" />
+
+  <button type="submit">Add Employee</button>
+</form>
+
+<!-- Image preview -->
+<div *ngIf="previewUrl">
+  <p>📷 Preview:</p>
+  <img [src]="previewUrl" alt="Preview" width="150" style="border:1px solid #ccc; padding: 4px;" />
+</div>

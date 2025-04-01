@@ -1,0 +1,36 @@
+<h2>Employees</h2>
+<form [formGroup]="searchForm" (ngSubmit)="onSearch()" class="search-form">
+    <input formControlName="department" placeholder="Search by Department">
+    <input formControlName="designation" placeholder="Search by Designation">
+    <button type="submit">🔍 Search</button>
+  </form>
+  
+
+<a routerLink="/add-employee">➕ Add Employee</a>
+
+<div *ngIf="loading">Loading...</div>
+
+<table *ngIf="!loading">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Designation</th>
+      <th>Department</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let emp of employees">
+      <td>{{ emp.first_name }} {{ emp.last_name }}</td>
+      <td>{{ emp.email }}</td>
+      <td>{{ emp.designation }}</td>
+      <td>{{ emp.department }}</td>
+      <td>
+        <a [routerLink]="['/employees', emp.id]">View</a> |
+        <a [routerLink]="['/employees', emp.id, 'edit']">Edit</a> |
+        <button (click)="deleteEmployee(emp.id!)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
