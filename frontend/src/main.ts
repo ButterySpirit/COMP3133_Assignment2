@@ -6,9 +6,11 @@ import { provideApollo } from 'apollo-angular';
 import { ApolloClientOptions, InMemoryCache, createHttpLink } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
 
+import { environment } from './environments/environment'; // 👈 import env
+
 function createApollo(): ApolloClientOptions<any> {
   const httpLink = createHttpLink({
-    uri: 'https://comp3133assignment2-production.up.railway.app/graphql',
+    uri: environment.graphqlUri, // 👈 use env var
   });
 
   const authLink = setContext(() => {
@@ -30,6 +32,6 @@ bootstrapApplication(AppComponent, {
   ...appConfig,
   providers: [
     ...appConfig.providers,
-    provideApollo(createApollo), // ✅ this now returns the correct type
+    provideApollo(createApollo),
   ],
 }).catch((err) => console.error(err));
