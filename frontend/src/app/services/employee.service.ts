@@ -85,7 +85,7 @@ export class EmployeeService {
       `,
       variables: {
         ...employee,
-        date_of_joining: new Date(employee.date_of_joining).toISOString(), // ensure correct format
+        date_of_joining: new Date(employee.date_of_joining).toISOString(),
       }
     });
   }
@@ -93,15 +93,43 @@ export class EmployeeService {
   updateEmployee(id: string, updates: Partial<Employee>) {
     return this.apollo.mutate({
       mutation: gql`
-        mutation UpdateEmployee($id: ID!, $updates: EmployeeInput!) {
-          updateEmployee(id: $id, input: $updates) {
+        mutation UpdateEmployee(
+          $id: ID!,
+          $first_name: String!,
+          $last_name: String!,
+          $email: String!,
+          $gender: String!,
+          $designation: String!,
+          $department: String!,
+          $salary: Float!,
+          $date_of_joining: String!,
+          $employee_photo: String
+        ) {
+          updateEmployee(
+            id: $id,
+            first_name: $first_name,
+            last_name: $last_name,
+            email: $email,
+            gender: $gender,
+            designation: $designation,
+            department: $department,
+            salary: $salary,
+            date_of_joining: $date_of_joining,
+            employee_photo: $employee_photo
+          ) {
             id
           }
         }
       `,
-      variables: { id, updates }
+      variables: {
+        id,
+        ...updates,
+        date_of_joining: new Date(updates.date_of_joining!).toISOString(),
+        employee_photo: updates.employee_photo || ""
+      }
     });
   }
+
   searchEmployees(department: string, designation: string) {
     return this.apollo.query({
       query: gql`
@@ -124,7 +152,6 @@ export class EmployeeService {
       fetchPolicy: 'no-cache'
     }).pipe(map((res: any) => res.data.searchEmployeesByDesignationOrDepartment));
   }
-  
 
   deleteEmployee(id: string) {
     return this.apollo.mutate({
